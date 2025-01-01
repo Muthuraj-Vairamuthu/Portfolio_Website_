@@ -12,12 +12,12 @@ const Navbar = () => {
       let currentSection = 'Home';
 
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 90; // Adjust for navbar height
+        const sectionTop = section.offsetTop - 100; 
         const sectionBottom = sectionTop + section.offsetHeight;
-        const scrollY = window.scrollY + 100; // Offset to detect middle of viewport
+        const scrollY = window.scrollY + window.innerHeight / 2; 
 
         if (scrollY >= sectionTop && scrollY <= sectionBottom) {
-          currentSection = section.id.replace(/-/g, ' '); // Convert ID to label
+          currentSection = section.id.replace(/-/g, ' '); 
         }
       });
 
@@ -46,8 +46,8 @@ const Navbar = () => {
           <h1 className="text-lg font-semibold text-gray-800">Muthuraj Vairamuthu.</h1>
         </div>
 
-        {/* Navigation Links */}
-        <div className="flex items-center space-x-8">
+        {/* Centered Navigation Links */}
+        <div className="flex-1 flex justify-center space-x-8">
           {['Home', 'About Me', 'My Expertise', 'My Projects'].map((section) => (
             <button
               key={section}
@@ -61,19 +61,19 @@ const Navbar = () => {
               {section}
             </button>
           ))}
-
-          {/* Contact Me Button */}
-          <button
-            onClick={() => handleClick('Contact Me')}
-            className={`ml-8 border ${
-              activeSection === 'Contact Me'
-                ? 'bg-purple-600 text-white'
-                : 'border-purple-600 text-purple-600'
-            } py-2 px-4 rounded-full font-medium hover:bg-purple-600 hover:text-white transition duration-300`}
-          >
-            Contact Me
-          </button>
         </div>
+
+        {/* Contact Me Button */}
+        <button
+          onClick={() => handleClick('Contact Me')}
+          className={`ml-8 border ${
+            activeSection === 'Contact Me'
+              ? 'bg-purple-600 text-white'
+              : 'border-purple-600 text-purple-600'
+          } py-2 px-4 rounded-full font-medium hover:bg-purple-600 hover:text-white transition duration-300`}
+        >
+          Contact Me
+        </button>
       </div>
     </nav>
   );

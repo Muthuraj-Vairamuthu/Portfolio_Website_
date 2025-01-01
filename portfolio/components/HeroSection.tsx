@@ -5,37 +5,46 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 const HeroSection = () => {
-  const [showContent, setShowContent] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Trigger content animation
-    const timeout = setTimeout(() => setShowContent(true), 300); // Delay for animation
-    return () => clearTimeout(timeout);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 } // Adjust the threshold to control when the animation triggers
+    );
+
+    const section = document.getElementById('home');
+    if (section) observer.observe(section);
+
+    return () => {
+      if (section) observer.unobserve(section);
+    };
   }, []);
 
   return (
     <section
       id="home"
-      className="bg-gradient-to-b from-white to-gray-100 text-textPrimary pt-[80px] md:pt-[90px]" // Adjust padding for navbar height
+      className="bg-gradient-to-b  text-textPrimary pt-[80px] md:pt-[90px]" 
     >
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
         {/* Left Content */}
         <div
           className={`md:w-1/2 mb-10 md:mb-0 transform transition duration-1000 ease-out ${
-            showContent ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'
           }`}
         >
           <h1 className="text-5xl font-extrabold text-primary mb-4 leading-snug">
             Hi, I'm <span className="text-accent">Muthuraj Vairamuthu</span>
           </h1>
           <h2
-            className="text-2xl md:text-3xl font-semibold text-gray-700 mb-6 relative group overflow-hidden"
+            className="text-2xl md:text-3xl font-semibold text-gray-700 mb-6 relative overflow-hidden"
           >
             <span className="block">
               Computer Science Junior at{' '}
-              <span className="text-primary relative">
+              <span className="text-primary dynamic-underline">
                 IIIT Delhi
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
               </span>
             </span>
           </h2>
@@ -82,7 +91,7 @@ const HeroSection = () => {
         {/* Right Image */}
         <div
           className={`md:w-1/2 flex justify-center relative transform transition duration-1000 ease-out ${
-            showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
           {/* Background Blob for Accent */}
@@ -98,6 +107,38 @@ const HeroSection = () => {
           />
         </div>
       </div>
+
+      {/* Add CSS for Dynamic Underline */}
+      <style jsx>{`
+        .dynamic-underline {
+          position: relative;
+        }
+
+        .dynamic-underline::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background-color: currentColor;
+          transform: scaleX(0);
+          transform-origin: left;
+          animation: underline-cycle 3s infinite ease-in-out;
+        }
+
+        @keyframes underline-cycle {
+          0% {
+            transform: scaleX(0);
+          }
+          50% {
+            transform: scaleX(1);
+          }
+          100% {
+            transform: scaleX(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };

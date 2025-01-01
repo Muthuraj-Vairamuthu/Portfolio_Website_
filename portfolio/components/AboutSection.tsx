@@ -1,13 +1,36 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const AboutSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 } // Adjust the threshold to control when the animation triggers
+    );
+
+    const section = document.getElementById('about');
+    if (section) observer.observe(section);
+
+    return () => {
+      if (section) observer.unobserve(section);
+    };
+  }, []);
+
   return (
     <section id="about" className="bg-gradient-to-b from-white to-gray-50 py-20">
       <div className="container mx-auto flex flex-col md:flex-row items-center px-6">
         {/* Left Image */}
-        <div className="md:w-1/3 flex justify-center mb-10 md:mb-0">
+        <div
+          className={`md:w-1/3 flex justify-center mb-10 md:mb-0 transform transition duration-1000 ease-out ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <div className="relative group">
             <Image
               src="/About Me.jpeg" // Replace with your actual image
@@ -22,7 +45,9 @@ const AboutSection = () => {
 
         {/* Right Content */}
         <div
-          className="md:w-2/3 transform transition duration-1000 ease-out opacity-0 translate-y-10 animate-fade-in-up"
+          className={`md:w-2/3 transform transition duration-1000 ease-out ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
         >
           <h2 className="text-4xl font-extrabold text-primary mb-6 leading-tight text-center md:text-left">
             About Me
