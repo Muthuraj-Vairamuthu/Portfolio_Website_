@@ -1,25 +1,42 @@
 const ContactSection = () => {
   return (
-    <section id="contact" className="container mx-auto py-20">
-      <h2 className="text-4xl font-bold text-center mb-8">Contact Me</h2>
-      <form
-        action="https://formsubmit.co/your-email"
-        method="POST"
-        className="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded shadow"
-      >
-        <input type="text" name="name" placeholder="Name" className="block w-full p-3 mb-4 border rounded" required />
-        <input type="email" name="email" placeholder="Email" className="block w-full p-3 mb-4 border rounded" required />
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          rows={4}
-          className="block w-full p-3 mb-4 border rounded"
-          required
-        ></textarea>
-        <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded shadow hover:bg-blue-700">
-          Send Message
-        </button>
-      </form>
+    <section
+      id="contact"
+      className="bg-backgroundLight py-16 text-textPrimary"
+    >
+      <div className="container mx-auto max-w-3xl">
+        <h2 className="text-3xl font-bold text-center text-primary mb-8">Get In Touch</h2>
+        <p className="text-center mb-12">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Let’s connect and build something great together!
+        </p>
+        <form className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <input
+              type="text"
+              placeholder="Name"
+              className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+          <textarea
+            placeholder="Your Message"
+            rows={6}
+            className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          ></textarea>
+          <div className="text-center">
+            <button
+              type="submit"
+              className="bg-primary text-white py-3 px-6 rounded-lg shadow-md hover:bg-opacity-80 transition-all"
+            >
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
   );
 };

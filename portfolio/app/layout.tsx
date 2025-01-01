@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export const metadata = {
-  title: "Muthuraj's Portfolio",
+  title: "Muthuraj Vairamuthu",
   description: 'Portfolio showcasing projects and skills',
 };
 

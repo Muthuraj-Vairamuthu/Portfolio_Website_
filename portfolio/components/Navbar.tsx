@@ -1,41 +1,77 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const [activeSection, setActiveSection] = useState('Home');
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Scroll event listener to update active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section');
+      let currentSection = 'Home';
 
-  const toggleDarkMode = () => {
-    document.documentElement.classList.toggle('dark');
-    setIsDarkMode(!isDarkMode);
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 90; // Adjust for navbar height
+        const sectionBottom = sectionTop + section.offsetHeight;
+        const scrollY = window.scrollY + 100; // Offset to detect middle of viewport
+
+        if (scrollY >= sectionTop && scrollY <= sectionBottom) {
+          currentSection = section.id.replace(/-/g, ' '); // Convert ID to label
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Smooth scrolling on button click
+  const handleClick = (section: string) => {
+    setActiveSection(section);
+    const element = document.getElementById(section.toLowerCase().replace(/ /g, '-'));
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-800 fixed top-0 w-full z-50 shadow">
+    <nav className="bg-white shadow-md fixed top-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
+        {/* Logo */}
         <div className="flex items-center">
-          <img src="/logo.svg" alt="Logo" className="w-8 h-8 mr-3" />
-          <h1 className="text-xl font-bold text-gray-800 dark:text-gray-50">Muthuraj Portfolio</h1>
+          <h1 className="text-lg font-semibold text-gray-800">Muthuraj Vairamuthu.</h1>
         </div>
-        <div className="flex space-x-6">
-          {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((section) => (
+
+        {/* Navigation Links */}
+        <div className="flex items-center space-x-8">
+          {['Home', 'About Me', 'My Expertise', 'My Projects'].map((section) => (
             <button
               key={section}
-              onClick={() => scrollToSection(section.toLowerCase())}
-              className="cursor-pointer text-gray-800 dark:text-gray-50 hover:text-blue-600 dark:hover:text-blue-400"
+              onClick={() => handleClick(section)}
+              className={`text-gray-800 font-medium ${
+                activeSection === section
+                  ? 'text-purple-600 border-b-2 border-purple-600'
+                  : 'hover:text-purple-600'
+              } transition duration-300`}
             >
               {section}
             </button>
           ))}
+
+          {/* Contact Me Button */}
           <button
-            onClick={toggleDarkMode}
-            className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700"
+            onClick={() => handleClick('Contact Me')}
+            className={`ml-8 border ${
+              activeSection === 'Contact Me'
+                ? 'bg-purple-600 text-white'
+                : 'border-purple-600 text-purple-600'
+            } py-2 px-4 rounded-full font-medium hover:bg-purple-600 hover:text-white transition duration-300`}
           >
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            Contact Me
           </button>
         </div>
       </div>
