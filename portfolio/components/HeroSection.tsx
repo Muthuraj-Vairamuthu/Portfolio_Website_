@@ -36,7 +36,7 @@ const HeroSection = () => {
           }`}
         >
           <h1 className="text-5xl font-extrabold text-primary mb-4 leading-snug">
-            Hi, I'm <span className="text-accent">Muthuraj Vairamuthu</span>
+            Hi, I&apos;m <span className="text-accent">Muthuraj Vairamuthu</span>
           </h1>
           <h2
             className="text-2xl md:text-3xl font-semibold text-gray-700 mb-6 relative overflow-hidden"

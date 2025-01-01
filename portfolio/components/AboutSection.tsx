@@ -53,7 +53,7 @@ const AboutSection = () => {
             About Me
           </h2>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-            I'm <span className="text-primary">Muthuraj Vairamuthu</span>, a Computer Science Engineering 
+            I&apos;m <span className="text-primary">Muthuraj Vairamuthu</span>, a Computer Science Engineering 
             junior at <span className="text-accent">IIIT Delhi</span>. As a 
             <span className="text-accent"> full-stack developer</span>, I specialize in 
             <span className="text-accent"> Next.js</span>, <span className="text-accent"> React.js</span>, and backend frameworks like 
