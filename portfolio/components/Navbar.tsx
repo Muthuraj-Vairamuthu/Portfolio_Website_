@@ -3,21 +3,20 @@
 import { useEffect, useState } from 'react';
 
 const Navbar = () => {
-  const [activeSection, setActiveSection] = useState('Home');
+  const [activeSection, setActiveSection] = useState('home'); // Default to the first section ID
 
-  // Scroll event listener to update active section
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('section');
-      let currentSection = 'Home';
 
+      // Find the section currently in view
+      let currentSection = 'home';
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 100; 
-        const sectionBottom = sectionTop + section.offsetHeight;
-        const scrollY = window.scrollY + window.innerHeight / 2; 
+        const { top, bottom } = section.getBoundingClientRect();
 
-        if (scrollY >= sectionTop && scrollY <= sectionBottom) {
-          currentSection = section.id.replace(/-/g, ' '); 
+        // Check if the section is within the viewport
+        if (top <= window.innerHeight / 2 && bottom >= window.innerHeight / 2) {
+          currentSection = section.id;
         }
       });
 
@@ -25,17 +24,16 @@ const Navbar = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Smooth scrolling on button click
+  // Smooth scrolling to a section on button click
   const handleClick = (section: string) => {
-    setActiveSection(section);
     const element = document.getElementById(section.toLowerCase().replace(/ /g, '-'));
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    setActiveSection(section.toLowerCase().replace(/ /g, '-'));
   };
 
   return (
@@ -48,26 +46,31 @@ const Navbar = () => {
 
         {/* Centered Navigation Links */}
         <div className="flex-1 flex justify-center space-x-8">
-          {['Home', 'About Me', 'My Expertise', 'My Projects'].map((section) => (
+          {[
+            { label: 'Home', id: 'home' },
+            { label: 'About Me', id: 'about-me' },
+            { label: 'My Expertise', id: 'my-expertise' },
+            { label: 'My Projects', id: 'my-projects' },
+          ].map(({ label, id }) => (
             <button
-              key={section}
-              onClick={() => handleClick(section)}
+              key={label}
+              onClick={() => handleClick(label)}
               className={`text-gray-800 font-medium ${
-                activeSection === section
+                activeSection === id
                   ? 'text-purple-600 border-b-2 border-purple-600'
                   : 'hover:text-purple-600'
               } transition duration-300`}
             >
-              {section}
+              {label}
             </button>
           ))}
         </div>
 
         {/* Contact Me Button */}
         <button
-          onClick={() => handleClick('Contact Me')}
+          onClick={() => handleClick('contact-me')}
           className={`ml-8 border ${
-            activeSection === 'Contact Me'
+            activeSection === 'contact-me'
               ? 'bg-purple-600 text-white'
               : 'border-purple-600 text-purple-600'
           } py-2 px-4 rounded-full font-medium hover:bg-purple-600 hover:text-white transition duration-300`}

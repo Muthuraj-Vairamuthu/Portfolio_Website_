@@ -11,7 +11,7 @@ const AboutSection = () => {
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.2 } // Adjust the threshold to control when the animation triggers
+      { threshold: 0.2 } 
     );
 
     const section = document.getElementById('about');
@@ -33,7 +33,7 @@ const AboutSection = () => {
         >
           <div className="relative group">
             <Image
-              src="/About Me.jpeg" // Replace with your actual image
+              src="/my4.png" 
               alt="About Me"
               width={350}
               height={350}

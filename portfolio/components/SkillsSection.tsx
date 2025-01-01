@@ -16,6 +16,8 @@ import {
   SiNodedotjs,
   SiPytorch,
 } from 'react-icons/si';
+import { FaCoffee } from 'react-icons/fa';
+
 import { useEffect, useState } from 'react';
 
 const SkillsSection = () => {
@@ -43,6 +45,7 @@ const SkillsSection = () => {
       items: [
         { name: 'Python', icon: <FaPython className="text-blue-500 text-4xl" /> },
         { name: 'C/C++', icon: <SiCplusplus className="text-green-500 text-4xl" /> },
+        { name: 'Java', icon: <FaCoffee className="text-red-500 text-4xl" /> },       
         { name: 'JavaScript', icon: <SiJavascript className="text-yellow-500 text-4xl" /> },
         { name: 'SQL', icon: <FaDatabase className="text-indigo-500 text-4xl" /> },
       ],

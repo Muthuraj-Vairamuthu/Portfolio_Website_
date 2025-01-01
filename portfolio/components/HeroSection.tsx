@@ -12,7 +12,7 @@ const HeroSection = () => {
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.2 } // Adjust the threshold to control when the animation triggers
+      { threshold: 0.2 }
     );
 
     const section = document.getElementById('home');
@@ -99,7 +99,7 @@ const HeroSection = () => {
 
           {/* Profile Image */}
           <Image
-            src="/About Me.jpeg" // Replace with the name of your image in the `public` folder
+            src="/About Me.jpeg" 
             alt="Profile Picture"
             width={600}
             height={600}
